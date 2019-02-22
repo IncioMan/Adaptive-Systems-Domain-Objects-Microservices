@@ -5,6 +5,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import it.alexincerti.domainobjectms.events.ExecuteActivity;
+
 @Entity
 @Table(name = "domain_object_instances")
 public class DomainObjectInstance {
@@ -13,8 +15,8 @@ public class DomainObjectInstance {
 	private Long id;
 
 	private String name;
-
 	private String description;
+	private String state;
 
 	public Long getId() {
 		return id;
@@ -40,4 +42,17 @@ public class DomainObjectInstance {
 		this.description = description;
 	}
 
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public ExecuteActivity getExecuteNextActivity() {
+		ExecuteActivity executeActivity = new ExecuteActivity(
+				"activity" + (Integer.parseInt(getState() != null ? getState() : "0") + 1) + "", this.id);
+		return executeActivity;
+	}
 }

@@ -1,4 +1,4 @@
-package it.alexincerti.domainobjectms;
+package it.alexincerti.domainobjectms.messages;
 
 import org.springframework.cloud.stream.annotation.Input;
 import org.springframework.cloud.stream.annotation.Output;
@@ -9,10 +9,13 @@ public interface Execution {
 	String EXECUTE_ACTIVITY_INPUT = "execute_activity_input";
 	String ACTIVITY_EXECUTED_INPUT = "activity_executed_input";
 
-	@Output("execute_activity_output")
+	String EXECUTE_ACTIVITY_OUTPUT = "execute_activity_output";
+	String ACTIVITY_EXECUTED_OUTPUT = "activity_executed_output";
+
+	@Output(EXECUTE_ACTIVITY_OUTPUT)
 	MessageChannel executeActivityOutput();
 
-	@Output("activity_executed_output")
+	@Output(ACTIVITY_EXECUTED_OUTPUT)
 	MessageChannel activityExecutedOutput();
 
 	@Input(EXECUTE_ACTIVITY_INPUT)

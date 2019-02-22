@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.alexincerti.domainobjectms.messages.ExecuteActivityMessage;
+import it.alexincerti.domainobjectms.messages.Execution;
 import it.alexincerti.domainobjectms.messages.Message;
 
 @RestController
@@ -27,7 +28,7 @@ public class ExecutionController {
 	@ResponseBody
 	public String executeActivity() {
 		execution.executeActivityOutput()
-				.send(MessageBuilder.withPayload(new ExecuteActivityMessage(1l, "ciao")).build());
+				.send(MessageBuilder.withPayload(new ExecuteActivityMessage(7l, "ciao")).build());
 		System.out.println("ExecuteActivityMessage sent");
 		return "Message sent";
 	}
