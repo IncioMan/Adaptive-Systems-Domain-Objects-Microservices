@@ -39,7 +39,7 @@ The main components of the microservice are:
 Asynchronous communication is used to communicate with other Domain Objects Microservices (External). It is also used to internally (Internal, in the table) handle various operations. This allows both to spread the workload on more instances of the Domain Object and to handle activity execution consistently, whether they are locally executed or by another DO as part of a **strong dependency**.
 
 |Message|Internal|External|Internal Purpose|External Purpose|
-|:---|:---:|:---:|:---|:---|:---|
+|:-|:-:|:-:|:-|:-|:-|
 |ExecuteActivity |✅|❌|Trigger execution of an activity for a Domain Object Instance| |
 |ExecuteActivityPlan |❌|✅||Order another Domain Object to execute an activity plan (as part of a rifinement of an abastract activity)|
 |StrongDependency |❌|✅||Notify the Domain Object which sent the ExecuteActivityPlan message the ID of the Domain Object Instance which will execute the plan. The calling DOI and the executing one have now a **Strong Dependency**|
