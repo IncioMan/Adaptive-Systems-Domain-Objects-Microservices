@@ -40,10 +40,10 @@ Asynchronous communication is used to communicate with other Domain Objects Micr
 
 |Message|Internal|External|Internal Purpose|External Purpose|
 |:-|:-:|:-:|:-|:-|:-|
-|ExecuteActivity |✅|❌|Trigger execution of an activity for a Domain Object Instance| |
-|ExecuteActivityPlan |❌|✅||Order another Domain Object to execute an activity plan (as part of a rifinement of an abastract activity)|
-|StrongDependency |❌|✅||Notify the Domain Object which sent the ExecuteActivityPlan message the ID of the Domain Object Instance which will execute the plan. The calling DOI and the executing one have now a **Strong Dependency**|
-|ActivityExecuted |✅|✅|Notify the local DOI that the execution has been completed|Notify any *strong dependent* DOI of the completed execution of the activity |
+|ExecuteActivity |||Trigger execution of an activity for a Domain Object Instance| |
+|ExecuteActivityPlan ||||Order another Domain Object to execute an activity plan (as part of a rifinement of an abastract activity)|
+|StrongDependency ||||Notify the Domain Object which sent the ExecuteActivityPlan message the ID of the Domain Object Instance which will execute the plan. The calling DOI and the executing one have now a **Strong Dependency**|
+|ActivityExecuted |||Notify the local DOI that the execution has been completed|Notify any *strong dependent* DOI of the completed execution of the activity |
 
 | id | name | email | bal | 
 | -: | - | - | -: | 
