@@ -18,15 +18,18 @@ By doing this, the new architecture can provide, among others:
 ## Single Domain Object Microservice
 
 ### Architectural overview
-
-![](./images/Overview.png)
+<p align="center">
+  <img height=200 src="./images/Overview.png">
+</p>
 
 The single Domain Object interacts with the external world using async communication and thanks to a Message Adapter which sends and receive messages from the broker.
 
 The architecture is hexagonal, with a Repository Adapter for accessing the database.
 
 ### Internal structure
-![](./images/diagram.png)
+<p align="center">
+  <img height=500 src="./images/diagram.png">
+</p>
 
 The main components of the microservice are:
 
@@ -46,7 +49,9 @@ Asynchronous communication is used to communicate with other Domain Objects Micr
 |ActivityExecuted |⚫|⚫|Notify the local DOI that the execution has been completed|Notify any *strong dependent* DOI of the completed execution of the activity |
 
 ### Status of the work
-![](./images/wip.png)
+<p align="center">
+  <img src="./images/wip.png">
+</p>
 
 The current status of the work allows a DO (DO1) to instantiate a DOI with a standard Activity Plan with the following activities:
 ```
