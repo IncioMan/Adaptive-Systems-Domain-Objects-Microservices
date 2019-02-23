@@ -12,15 +12,19 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class ActivityExecutedMessage {
 
 	private String activityName;
+	private String domainObjectName;
 	private Long domainObjectId;
 
 	public ActivityExecutedMessage() {
 
 	}
 
-	public ActivityExecutedMessage(Long domainObjectId, String activityName) {
-		this.activityName = activityName;
-		this.domainObjectId = domainObjectId;
+	public String getDomainObjectName() {
+		return domainObjectName;
+	}
+
+	public void setDomainObjectName(String domainObjectName) {
+		this.domainObjectName = domainObjectName;
 	}
 
 	public String getActivityName() {

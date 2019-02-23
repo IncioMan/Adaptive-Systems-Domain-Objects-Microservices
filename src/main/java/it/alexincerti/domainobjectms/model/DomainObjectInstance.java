@@ -68,7 +68,7 @@ public class DomainObjectInstance {
 		if (activityPlan.getNextActivity() == null) {
 			return null;
 		}
-		ExecuteActivity executeActivity = new ExecuteActivity(activityPlan.getNextActivity().getName(), this.id);
+		ExecuteActivity executeActivity = new ExecuteActivity(activityPlan.getNextActivity().getId(), this.id);
 		return executeActivity;
 	}
 
@@ -77,9 +77,15 @@ public class DomainObjectInstance {
 	 */
 	public void setActivityPlan() {
 		ActivityPlan activityPlan = new ActivityPlan();
-		Activity currentActivity = null;
+		AbstractActivity currentActivity = null;
 		for (int i = 0; i < 4; i++) {
-			Activity activity = new Activity();
+			AbstractActivity activity = null;
+			if (i == 2) {
+				activity = new ExternalActivity();
+				((ExternalActivity) activity).setDomainObjectExecutor("do2");
+			} else {
+				activity = new InternalActivity();
+			}
 			activity.setName(i + "");
 			if (currentActivity == null) {
 				currentActivity = activity;
@@ -97,5 +103,12 @@ public class DomainObjectInstance {
 			state = activityExecuted.getActivityName();
 			this.getActivityPlan().moveToNextActivity();
 		}
+	}
+
+	public void setActivityPlan(String activityName) {
+		this.activityPlan = new ActivityPlan();
+		InternalActivity activity = new InternalActivity();
+		activity.setName(activityName);
+		activityPlan.setStartActivity(activity);
 	}
 }

@@ -2,11 +2,11 @@ package it.alexincerti.domainobjectms.events;
 
 public class ExecuteActivity implements DomainEvent {
 
-	private String activityName;
+	private Long activityId;
 	private Long domainObjectId;
 
-	public ExecuteActivity(String activityName, Long domainObjectId) {
-		this.activityName = activityName;
+	public ExecuteActivity(Long activityId, Long domainObjectId) {
+		this.activityId = activityId;
 		this.domainObjectId = domainObjectId;
 	}
 
@@ -14,12 +14,12 @@ public class ExecuteActivity implements DomainEvent {
 		// TODO Auto-generated constructor stub
 	}
 
-	public String getActivityName() {
-		return activityName;
+	public Long getActivityId() {
+		return activityId;
 	}
 
-	public void setActivityName(String activityName) {
-		this.activityName = activityName;
+	public void setActivityId(Long activityId) {
+		this.activityId = activityId;
 	}
 
 	public Long getDomainObjectId() {

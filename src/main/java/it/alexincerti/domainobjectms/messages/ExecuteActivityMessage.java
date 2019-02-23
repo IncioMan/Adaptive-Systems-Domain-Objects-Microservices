@@ -11,24 +11,24 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ExecuteActivityMessage {
 
-	private String activityName;
 	private Long domainObjectId;
+	private Long activityId;
 
 	public ExecuteActivityMessage() {
 
 	}
 
-	public ExecuteActivityMessage(Long domainObjectId, String activityName) {
-		this.activityName = activityName;
+	public ExecuteActivityMessage(Long domainObjectId, Long activityId) {
+		this.activityId = activityId;
 		this.domainObjectId = domainObjectId;
 	}
 
-	public String getActivityName() {
-		return activityName;
+	public Long getActivityId() {
+		return activityId;
 	}
 
-	public void setActivityName(String activityName) {
-		this.activityName = activityName;
+	public void setActivityId(Long activityId) {
+		this.activityId = activityId;
 	}
 
 	public Long getDomainObjectId() {
@@ -41,7 +41,7 @@ public class ExecuteActivityMessage {
 
 	@Override
 	public String toString() {
-		return this.getClass().getName() + "{" + "domainObjectId='" + domainObjectId + '\n' + "activityName='"
-				+ activityName + '}';
+		return this.getClass().getName() + "{" + "domainObjectId='" + domainObjectId + '\n' + "activityId='"
+				+ activityId + '}';
 	}
 }

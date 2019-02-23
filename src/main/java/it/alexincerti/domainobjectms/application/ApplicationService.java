@@ -9,6 +9,8 @@ import it.alexincerti.domainobjectms.dispatcher.EventDispatcher;
 import it.alexincerti.domainobjectms.events.ActivityExecuted;
 import it.alexincerti.domainobjectms.events.DomainEvent;
 import it.alexincerti.domainobjectms.events.ExecuteActivity;
+import it.alexincerti.domainobjectms.events.ExecuteExternalActivity;
+import it.alexincerti.domainobjectms.events.StrongDependencyEvent;
 
 @Service
 public class ApplicationService {
@@ -31,6 +33,21 @@ public class ApplicationService {
 
 	public void processStart() {
 		List<DomainEvent> events = executionService.startDomainObject();
+		eventDispatcher.dispatch(events);
+	}
+
+	public void processExecuteActivityPlan(ExecuteExternalActivity executeExternalActivity) {
+		List<DomainEvent> events = executionService.processExecuteActivityPlan(executeExternalActivity);
+		eventDispatcher.dispatch(events);
+	}
+
+	public void processStrongDependency(StrongDependencyEvent strongDependencyEvent) {
+		List<DomainEvent> events = executionService.processStrongDependency(strongDependencyEvent);
+		eventDispatcher.dispatch(events);
+	}
+
+	public void processExternalActivityExecuted(ActivityExecuted activityExecuted) {
+		List<DomainEvent> events = executionService.processExternalActivityExecuted(activityExecuted);
 		eventDispatcher.dispatch(events);
 	}
 }

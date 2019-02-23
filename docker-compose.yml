@@ -10,11 +10,11 @@ services:
 
   postgres:
     container_name: do-postgres
-    image: eu.gcr.io/your-project/postgres-multi-db
+    image: postgres
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_MULTIPLE_DATABASES: do1,do2
+      POSTGRES_DB: "domain-object-1"
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_USER: "postgres"
     restart: always

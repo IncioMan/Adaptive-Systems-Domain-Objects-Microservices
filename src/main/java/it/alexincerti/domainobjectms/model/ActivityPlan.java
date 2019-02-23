@@ -14,11 +14,11 @@ public class ActivityPlan {
 	@GeneratedValue
 	private Long id;
 
-	@ManyToOne(targetEntity = Activity.class, cascade = { CascadeType.ALL })
-	private Activity startActivity;
+	@ManyToOne(targetEntity = AbstractActivity.class, cascade = { CascadeType.ALL })
+	private AbstractActivity startActivity;
 
-	@ManyToOne(targetEntity = Activity.class, cascade = { CascadeType.ALL })
-	private Activity currentActivity;
+	@ManyToOne(targetEntity = AbstractActivity.class, cascade = { CascadeType.ALL })
+	private AbstractActivity currentActivity;
 
 	public Long getId() {
 		return id;
@@ -28,24 +28,24 @@ public class ActivityPlan {
 		this.id = id;
 	}
 
-	public Activity getStartActivity() {
+	public AbstractActivity getStartActivity() {
 		return startActivity;
 	}
 
-	public void setStartActivity(Activity startActivity) {
+	public void setStartActivity(AbstractActivity startActivity) {
 		this.startActivity = startActivity;
 		this.setCurrentActivity(startActivity);
 	}
 
-	public Activity getCurrentActivity() {
+	public AbstractActivity getCurrentActivity() {
 		return currentActivity;
 	}
 
-	public void setCurrentActivity(Activity currentActivity) {
+	public void setCurrentActivity(AbstractActivity currentActivity) {
 		this.currentActivity = currentActivity;
 	}
 
-	public Activity getNextActivity() {
+	public AbstractActivity getNextActivity() {
 		return currentActivity;
 	}
 
