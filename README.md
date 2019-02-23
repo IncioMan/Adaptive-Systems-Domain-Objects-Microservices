@@ -19,7 +19,7 @@ By doing this, the new architecture can provide, among others:
 
 ### Architectural overview
 <p align="center">
-  <img height=200 src="./images/Overview.png">
+  <img height=300 src="./images/Overview.png">
 </p>
 
 The single Domain Object interacts with the external world using async communication and thanks to a Message Adapter which sends and receive messages from the broker.
@@ -28,7 +28,7 @@ The architecture is hexagonal, with a Repository Adapter for accessing the datab
 
 ### Internal structure
 <p align="center">
-  <img height=500 src="./images/diagram.png">
+  <img height=600 src="./images/diagram.png">
 </p>
 
 The main components of the microservice are:
