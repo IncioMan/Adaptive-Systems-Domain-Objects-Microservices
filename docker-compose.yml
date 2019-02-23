@@ -1,0 +1,20 @@
+version: "2"
+services:
+  rabbit:
+    container_name: message-broker-rabbitmq
+    image: rabbitmq:3.6-management
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    restart: always
+
+  postgres:
+    container_name: do-postgres
+    image: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: "domain-object-1"
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+    restart: always
