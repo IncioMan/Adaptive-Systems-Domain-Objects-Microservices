@@ -14,6 +14,7 @@ import it.alexincerti.domainobjectms.events.ExecuteActivity;
 import it.alexincerti.domainobjectms.messages.ActivityExecutedMessage;
 import it.alexincerti.domainobjectms.messages.ExecuteActivityMessage;
 import it.alexincerti.domainobjectms.messages.Execution;
+import it.alexincerti.domainobjectms.messages.StartMessage;
 
 @EnableBinding(Execution.class)
 public class MessageAdapters {
@@ -33,26 +34,53 @@ public class MessageAdapters {
 
 	// @SendTo(Execution.ACTIVITY_EXECUTED_OUTPUT)
 	private void sendActivityExecuted(ActivityExecuted event) {
-		ActivityExecutedMessage message = new ActivityExecutedMessage();
-		message.setActivityName(event.getActivityName());
-		message.setDomainObjectId(event.getDomainObjectId());
-		execution.activityExecutedOutput().send(MessageBuilder.withPayload(message).build());
+		execution.activityExecutedOutput().send(MessageBuilder.withPayload(convert(event)).build());
 	}
 
 	private void sendExecuteActivity(ExecuteActivity event) {
-		ExecuteActivityMessage message = new ExecuteActivityMessage();
-		message.setActivityName(event.getActivityName());
-		message.setDomainObjectId(event.getDomainObjectId());
-		execution.executeActivityOutput().send(MessageBuilder.withPayload(message).build());
+		execution.executeActivityOutput().send(MessageBuilder.withPayload(convert(event)).build());
 	}
 
 	@StreamListener(target = Execution.ACTIVITY_EXECUTED_INPUT)
 	public void processMessage(ActivityExecutedMessage activityExecutedMessage) {
-		applicationService.processActivityExecuted(activityExecutedMessage);
+		applicationService.processActivityExecuted(convert(activityExecutedMessage));
 	}
 
 	@StreamListener(target = Execution.EXECUTE_ACTIVITY_INPUT)
 	public void processExecuteActivytMessage(ExecuteActivityMessage executeActivityMessage) {
-		applicationService.processExecuteActivity(executeActivityMessage);
+		applicationService.processExecuteActivity(convert(executeActivityMessage));
+	}
+
+	@StreamListener(target = Execution.START_INPUT)
+	public void processStartMessage(StartMessage startMessage) {
+		applicationService.processStart();
+	}
+
+	private ExecuteActivity convert(ExecuteActivityMessage message) {
+		ExecuteActivity event = new ExecuteActivity();
+		event.setActivityName(message.getActivityName());
+		event.setDomainObjectId(message.getDomainObjectId());
+		return event;
+	}
+
+	private ExecuteActivityMessage convert(ExecuteActivity event) {
+		ExecuteActivityMessage message = new ExecuteActivityMessage();
+		message.setActivityName(event.getActivityName());
+		message.setDomainObjectId(event.getDomainObjectId());
+		return message;
+	}
+
+	private ActivityExecutedMessage convert(ActivityExecuted event) {
+		ActivityExecutedMessage message = new ActivityExecutedMessage();
+		message.setActivityName(event.getActivityName());
+		message.setDomainObjectId(event.getDomainObjectId());
+		return message;
+	}
+
+	private ActivityExecuted convert(ActivityExecutedMessage message) {
+		ActivityExecuted event = new ActivityExecuted();
+		event.setActivityName(message.getActivityName());
+		event.setDomainObjectId(message.getDomainObjectId());
+		return event;
 	}
 }

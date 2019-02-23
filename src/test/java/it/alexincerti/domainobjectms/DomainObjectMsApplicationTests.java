@@ -13,8 +13,8 @@ import org.springframework.util.Assert;
 import it.alexincerti.domainobjectms.application.ExecutionService;
 import it.alexincerti.domainobjectms.events.ActivityExecuted;
 import it.alexincerti.domainobjectms.events.DomainEvent;
+import it.alexincerti.domainobjectms.events.ExecuteActivity;
 import it.alexincerti.domainobjectms.messages.ActivityExecutedMessage;
-import it.alexincerti.domainobjectms.messages.ExecuteActivityMessage;
 import it.alexincerti.domainobjectms.model.DomainObjectInstance;
 import it.alexincerti.domainobjectms.repositories.DomainObjectInstanceRepository;
 
@@ -58,7 +58,6 @@ public class DomainObjectMsApplicationTests {
 	}
 
 	private List<DomainEvent> processExecuteActivityMessage() {
-		return executionService
-				.processExecuteActivity(new ExecuteActivityMessage(domainObjectInstance.getId(), "ciao"));
+		return executionService.processExecuteActivity(new ExecuteActivity("ciao", domainObjectInstance.getId()));
 	}
 }

@@ -10,6 +10,10 @@ public class ExecuteActivity implements DomainEvent {
 		this.domainObjectId = domainObjectId;
 	}
 
+	public ExecuteActivity() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getActivityName() {
 		return activityName;
 	}

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import it.alexincerti.domainobjectms.dispatcher.EventDispatcher;
+import it.alexincerti.domainobjectms.events.ActivityExecuted;
 import it.alexincerti.domainobjectms.events.DomainEvent;
-import it.alexincerti.domainobjectms.messages.ActivityExecutedMessage;
-import it.alexincerti.domainobjectms.messages.ExecuteActivityMessage;
+import it.alexincerti.domainobjectms.events.ExecuteActivity;
 
 @Service
 public class ApplicationService {
@@ -19,14 +19,18 @@ public class ApplicationService {
 	@Autowired
 	private EventDispatcher eventDispatcher;
 
-	public void processActivityExecuted(ActivityExecutedMessage activityExecutedMessage) {
-		List<DomainEvent> events = activityService.processActivityExecuted(activityExecutedMessage);
+	public void processActivityExecuted(ActivityExecuted activityExecuted) {
+		List<DomainEvent> events = activityService.processActivityExecuted(activityExecuted);
 		eventDispatcher.dispatch(events);
 	}
 
-	public void processExecuteActivity(ExecuteActivityMessage executeActivityMessage) {
-		List<DomainEvent> events = executionService.processExecuteActivity(executeActivityMessage);
+	public void processExecuteActivity(ExecuteActivity executeActivity) {
+		List<DomainEvent> events = executionService.processExecuteActivity(executeActivity);
 		eventDispatcher.dispatch(events);
 	}
 
+	public void processStart() {
+		List<DomainEvent> events = executionService.startDomainObject();
+		eventDispatcher.dispatch(events);
+	}
 }

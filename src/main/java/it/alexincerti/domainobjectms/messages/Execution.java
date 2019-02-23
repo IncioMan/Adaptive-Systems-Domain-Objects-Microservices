@@ -12,6 +12,9 @@ public interface Execution {
 	String EXECUTE_ACTIVITY_OUTPUT = "execute_activity_output";
 	String ACTIVITY_EXECUTED_OUTPUT = "activity_executed_output";
 
+	String START_OUTPUT = "start_output";
+	String START_INPUT = "start_input";
+
 	@Output(EXECUTE_ACTIVITY_OUTPUT)
 	MessageChannel executeActivityOutput();
 
@@ -23,4 +26,10 @@ public interface Execution {
 
 	@Input(ACTIVITY_EXECUTED_INPUT)
 	MessageChannel activityExecutedInput();
+
+	@Output(START_OUTPUT)
+	MessageChannel startOutput();
+
+	@Input(START_INPUT)
+	MessageChannel startInput();
 }

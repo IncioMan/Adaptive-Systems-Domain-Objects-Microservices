@@ -2,41 +2,45 @@ package it.alexincerti.domainobjectms.application;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import it.alexincerti.domainobjectms.events.ActivityExecuted;
 import it.alexincerti.domainobjectms.events.DomainEvent;
-import it.alexincerti.domainobjectms.messages.ActivityExecutedMessage;
+import it.alexincerti.domainobjectms.events.ExecuteActivity;
 import it.alexincerti.domainobjectms.model.DomainObjectInstance;
 import it.alexincerti.domainobjectms.repositories.DomainObjectInstanceRepository;
 
 @Service
 public class ActivityService {
+	private static Logger LOG = LoggerFactory.getLogger(ActivityService.class);
+
 	@Autowired
 	private DomainObjectInstanceRepository domainObjectInstanceRepository;
 
-	public List<DomainEvent> processActivityExecuted(ActivityExecutedMessage activityExecutedMessage) {
+	public List<DomainEvent> processActivityExecuted(ActivityExecuted activityExecuted) {
 		ArrayList<DomainEvent> events = new ArrayList<>();
 		//
-		System.out.println(String.format("Activity |%s| executed by DOI |%d|",
-				activityExecutedMessage.getActivityName(), activityExecutedMessage.getDomainObjectId()));
+		LOG.debug("Activity |{}| executed by DOI |{}|", activityExecuted.getActivityName(),
+				activityExecuted.getDomainObjectId());
 		// Load DOI
-		Optional<DomainObjectInstance> doi = domainObjectInstanceRepository
-				.findById(activityExecutedMessage.getDomainObjectId());
-		// Process events from AE event
-		String state = doi.get().getState();
-		if (state == null) {
-			state = "0";
+		DomainObjectInstance doi = domainObjectInstanceRepository.findById(activityExecuted.getDomainObjectId())
+				.orElseGet(null);
+		if (doi == null) {
+			LOG.error("Unable to find DOI with ID: |{}|...", activityExecuted.getDomainObjectId());
 		}
-		if (!state.equals("17")) {
-			state = Integer.parseInt(state) + 1 + "";
-			doi.get().setState(state);
-			domainObjectInstanceRepository.save(doi.get());
-			System.out.println(String.format("DOI state |%s|", state));
-			// Publish new Execute Activity by calling getnextActivity
-			events.add(doi.get().getExecuteNextActivity());
+		// Process events from AE event
+		doi.process(activityExecuted);
+		domainObjectInstanceRepository.save(doi);
+		LOG.debug("DOI state |{}|", doi.getState());
+
+		// Publish new Execute Activity by calling getnextActivity
+		ExecuteActivity executeNextActivity = doi.getExecuteNextActivity();
+		if (executeNextActivity != null) {
+			events.add(executeNextActivity);
 		}
 		return events;
 	}
