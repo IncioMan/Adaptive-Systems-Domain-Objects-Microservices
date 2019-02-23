@@ -46,6 +46,8 @@ Asynchronous communication is used to communicate with other Domain Objects Micr
 |ActivityExecuted |⚫|⚫|Notify the local DOI that the execution has been completed|Notify any *strong dependent* DOI of the completed execution of the activity |
 
 ### Status of the work
+![](./images/wip.png)
+
 The current status of the work allows a DO (DO1) to instantiate a DOI with a standard Activity Plan with the following activities:
 ```
 [0] -> [1] -> (2) -> [3]
