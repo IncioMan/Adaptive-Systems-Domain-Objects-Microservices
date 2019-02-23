@@ -60,5 +60,5 @@ At that point it emits a *ExecuteActivityPlan* to the desired DO (DO2) which wil
 ```
 (2)
 ```
-DO2 will replay with a StrongDependency message and DO1 will process the ActivityExecuted messages from the DOI of DO2. Once `(2)` is executed, DO1 will move on to execute 
+DO2 will reply with a *StrongDependency* message and DO1 will process the *ActivityExecuted* messages from the DOI of DO2. Once `(2)` is executed, DO1 will move on to execute 
 `[3]` and then stop.
